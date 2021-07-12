@@ -47,6 +47,7 @@ public class BlogController implements WebMvcConfigurer {
         registerUserResponse.setData(dtoUserObject);
         registerUserResponse.setMessage("User Registration Success");
         registerUserResponse.setStatus("success");
+
         log.info(registerUserResponse.getMessage());
         return new ResponseEntity<>(registerUserResponse,HttpStatus.OK);
     }

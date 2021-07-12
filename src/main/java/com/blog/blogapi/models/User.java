@@ -42,6 +42,11 @@ public class User {
         this.blogs=blogs;
     }
 
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
     public Integer getId() {
         return id;
     }
