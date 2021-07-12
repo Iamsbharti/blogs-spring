@@ -1,28 +1,38 @@
 package com.blog.blogapi.common;
 
-import com.blog.blogapi.dto.UserDTO;
+import com.blog.blogapi.dto.UserLoginDTO;
+import com.blog.blogapi.dto.UserRegistrationDTO;
 import com.blog.blogapi.models.User;
 
-public class DtoConvertor {
-    public static User userDtoToEntity(UserDTO userDto){
+public class DtoConvertor  {
+    public static User registerUserDtoToEntity(UserRegistrationDTO userRegistrationDto){
         User user = new User();
 
-        user.setId(userDto.getId());
-        user.setName(userDto.getName());
-        user.setEmail(userDto.getEmail());
-        user.setPassword(userDto.getPassword());
+        user.setId(userRegistrationDto.getId());
+        user.setName(userRegistrationDto.getName());
+        user.setEmail(userRegistrationDto.getEmail());
+        user.setPassword(userRegistrationDto.getPassword());
 
         return user;
     }
 
-    public static UserDTO userEntityToDto(User user){
-        UserDTO userDto = new UserDTO();
+    public static UserRegistrationDTO userEntityToDto(User user){
+        UserRegistrationDTO userRegistrationDto = new UserRegistrationDTO();
 
-        userDto.setId(user.getId());
-        userDto.setName(user.getName());
-        userDto.setEmail(user.getEmail());
-        userDto.setPassword(user.getPassword());
+        userRegistrationDto.setId(user.getId());
+        userRegistrationDto.setName(user.getName());
+        userRegistrationDto.setEmail(user.getEmail());
+        userRegistrationDto.setPassword(user.getPassword());
 
-        return userDto;
+        return userRegistrationDto;
+    }
+
+    public static User loginUserDtoToEntity(UserLoginDTO userLoginDTO) {
+        User user = new User();
+
+        user.setEmail(userLoginDTO.getEmail());
+        user.setPassword(userLoginDTO.getPassword());
+
+        return user;
     }
 }

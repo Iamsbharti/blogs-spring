@@ -1,12 +1,10 @@
 package com.blog.blogapi.services;
 
-import com.blog.blogapi.dto.UserDTO;
 import com.blog.blogapi.exception.LoginFailureException;
 import com.blog.blogapi.exception.UserNotFoundException;
 import com.blog.blogapi.models.User;
 import com.blog.blogapi.repository.UserRepository;
 import lombok.extern.log4j.Log4j2;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

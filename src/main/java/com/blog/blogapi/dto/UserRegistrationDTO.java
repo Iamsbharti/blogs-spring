@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class UserDTO {
+public class UserRegistrationDTO {
     private Integer id;
     @NotEmpty
     @Size(min=2,message = "Name should be of 2 characters")

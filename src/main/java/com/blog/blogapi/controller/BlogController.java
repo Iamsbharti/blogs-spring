@@ -3,7 +3,8 @@ package com.blog.blogapi.controller;
 
 import com.blog.blogapi.common.DtoConvertor;
 import com.blog.blogapi.common.ResponseHandler;
-import com.blog.blogapi.dto.UserDTO;
+import com.blog.blogapi.dto.UserLoginDTO;
+import com.blog.blogapi.dto.UserRegistrationDTO;
 import com.blog.blogapi.exception.ApiResponse;
 import com.blog.blogapi.exception.LoginFailureException;
 import com.blog.blogapi.exception.UserNotFoundException;
@@ -13,15 +14,11 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @RestController
 @Log4j2
@@ -39,12 +36,12 @@ public class BlogController implements WebMvcConfigurer {
 
     @PostMapping("/user/create")
     @ResponseBody
-    public ResponseEntity<?> registerUser(@Valid @RequestBody UserDTO userDto) throws Exception {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody UserRegistrationDTO userRegistrationDto) throws Exception {
         log.info("Register User Control::");
 
-        User userObject = DtoConvertor.userDtoToEntity(userDto);
+        User userObject = DtoConvertor.registerUserDtoToEntity(userRegistrationDto);
         User createdUser = userServices.createUserService(userObject);
-        UserDTO dtoUserObject = DtoConvertor.userEntityToDto(createdUser);
+        UserRegistrationDTO dtoUserObject = DtoConvertor.userEntityToDto(createdUser);
 
         ApiResponse registerUserResponse = new ApiResponse();
         registerUserResponse.setData(dtoUserObject);
@@ -56,9 +53,10 @@ public class BlogController implements WebMvcConfigurer {
 
     @PostMapping("/user/login")
     @ResponseBody
-    public ResponseEntity<ApiResponse> loginController(@RequestBody User user) throws UserNotFoundException, LoginFailureException {
-        log.info("Login User Control");
-        Map loginResponse = userServices.loginServices(user);
+    public ResponseEntity<ApiResponse> loginController(@Valid @RequestBody UserLoginDTO userLoginDTO) throws UserNotFoundException, LoginFailureException {
+        log.info("Login User Control::");
+        User userObject = DtoConvertor.loginUserDtoToEntity(userLoginDTO);
+        Map loginResponse = userServices.loginServices(userObject);
         ApiResponse response = new ApiResponse("success", "Login Success",loginResponse);
         return new ResponseEntity<ApiResponse>(response,HttpStatus.OK);
     }
