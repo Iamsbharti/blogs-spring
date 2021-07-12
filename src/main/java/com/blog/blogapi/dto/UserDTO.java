@@ -22,8 +22,7 @@ public class UserDTO {
     @NotEmpty(message = "Email should not be empty")
     @Email
     private String email;
-    @NotEmpty
-    @Size(min=8,message = "Password should be of length 8 or max")
-    @JsonIgnore
+    @NotEmpty(message = "Password should be of length 8 or max")
+    @Size(min=8,max=16)
     private String password;
 }
