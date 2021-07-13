@@ -16,9 +16,11 @@ import java.util.Optional;
 @Log4j2
 public class UserServicesImpl implements UserServices {
     private UserRepository userRepository;
+    private AuthTokenGenerator authTokenGenerator;
     @Autowired
-    public UserServicesImpl(UserRepository userRepository){
+    public UserServicesImpl(UserRepository userRepository,AuthTokenGenerator authTokenGenerator){
         this.userRepository=userRepository;
+        this.authTokenGenerator=authTokenGenerator;
     }
 
     @Override
@@ -42,7 +44,7 @@ public class UserServicesImpl implements UserServices {
         }
         // validate credentials
         if(userExists.get().getPassword().equals(user.getPassword())){
-            return Map.of("token","dhgfyeur723r5434BASFURDSYTF72635");
+            return Map.of("token",authTokenGenerator.generateAuthToken(user.getEmail()));
         }else{
             throw new LoginFailureException("Credential Mismatch");
         }

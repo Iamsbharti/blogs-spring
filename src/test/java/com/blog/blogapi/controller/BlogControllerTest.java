@@ -171,4 +171,17 @@ public class BlogControllerTest {
                 .andExpect(status().isUnauthorized())
                 .andExpect(content().string(getWriteValueAsString(testLoginFailureResponse)));
     }
+    @Test
+    void loginController_userNotFoundError() throws Exception, LoginFailureException {
+        when(userRepository.findUsersByEmail(newUser.getEmail())).thenReturn(null);
+        when(userMockServices.loginServices(Mockito.any(User.class))).thenThrow(new UserNotFoundException("Resource Not found"));
+        ApiResponse testLoginFailureResponse = new ApiResponse("error","Resource Not found",null);
+
+        MockHttpServletRequestBuilder builder = getMockHttpServletRequestBuilder(LOGIN_URL,newUser);
+
+        this.mockMvc.perform(builder)
+                .andExpect(status().isNotFound())
+                .andExpect(content().string(getWriteValueAsString(testLoginFailureResponse)));
+    }
+
 }
