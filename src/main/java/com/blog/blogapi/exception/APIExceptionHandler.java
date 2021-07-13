@@ -51,4 +51,15 @@ public class APIExceptionHandler{
 
         return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler(InvalidTokenException.class)
+    public ResponseEntity<?> handleInvalidTokenException(InvalidTokenException exception){
+        log.error("Invalid Token Exception Handler");
+
+        ApiResponse response = new ApiResponse();
+        response.setStatus(HttpStatus.BAD_REQUEST.toString());
+        response.setMessage(exception.getMessage());
+        response.setData(null);
+
+        return new ResponseEntity<ApiResponse>(response,HttpStatus.BAD_REQUEST);
+    }
 }

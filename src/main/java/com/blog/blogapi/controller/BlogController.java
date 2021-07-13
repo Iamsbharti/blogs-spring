@@ -61,4 +61,11 @@ public class BlogController implements WebMvcConfigurer {
         ApiResponse response = new ApiResponse("success", "Login Success",loginResponse);
         return new ResponseEntity<ApiResponse>(response,HttpStatus.OK);
     }
+
+    @GetMapping("/blog/create")
+    @ResponseBody
+    public String createBlog(){
+        log.info("Create blog controller");
+        return "blog create success";
+    }
 }
